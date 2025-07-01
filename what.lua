@@ -1,6 +1,5 @@
-local Players = game:GetService("Players")
+local player = game:GetService("Players").LocalPlayer
 
-local player = Players.LocalPlayer
 local gui = Instance.new("ScreenGui")
 gui.Name = "TrollGui"
 gui.ResetOnSpawn = false
@@ -16,6 +15,3 @@ label.BackgroundColor3 = Color3.new(1, 0, 0)
 label.Parent = gui
 
 gui.Parent = player:WaitForChild("PlayerGui")
-
-wait(5)
-label.Text = "LOL BRO 😆"
