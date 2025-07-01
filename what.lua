@@ -1,49 +1,32 @@
--- Simple ESP Script (Head Label ESP)
+-- Troll GUI Script (Loadstring version)
 
 local Players = game:GetService("Players")
-local localPlayer = Players.LocalPlayer
+local player = Players.LocalPlayer
 
-function createESP(player)
-	if player == localPlayer then return end
-	
-	local function addBillboard()
-		local character = player.Character
-		if not character then return end
-		local head = character:FindFirstChild("Head")
-		if not head then return end
-
-		if head:FindFirstChild("ESPLabel") then return end
-
-		local bbGui = Instance.new("BillboardGui")
-		bbGui.Name = "ESPLabel"
-		bbGui.Adornee = head
-		bbGui.Size = UDim2.new(0, 100, 0, 30)
-		bbGui.AlwaysOnTop = true
-
-		local label = Instance.new("TextLabel", bbGui)
-		label.Size = UDim2.new(1, 0, 1, 0)
-		label.Text = player.Name
-		label.TextColor3 = Color3.new(1, 0, 0)
-		label.BackgroundTransparency = 1
-		label.TextStrokeTransparency = 0.5
-
-		bbGui.Parent = head
-	end
-
-	player.CharacterAdded:Connect(function()
-		wait(1)
-		addBillboard()
-	end)
-
-	if player.Character then
-		addBillboard()
-	end
+-- Check if already exists
+if player:FindFirstChild("PlayerGui"):FindFirstChild("TrollGui") then
+	return
 end
 
-for _, player in ipairs(Players:GetPlayers()) do
-	createESP(player)
-end
+-- Create GUI
+local gui = Instance.new("ScreenGui")
+gui.Name = "TrollGui"
+gui.ResetOnSpawn = false
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-Players.PlayerAdded:Connect(function(player)
-	createESP(player)
-end)
+-- Create Label
+local label = Instance.new("TextLabel")
+label.Size = UDim2.new(0.6, 0, 0.2, 0)
+label.Position = UDim2.new(0.2, 0, 0.4, 0)
+label.Text = "😈 YOU GOT TROLLED! 😈"
+label.TextSize = 42
+label.Font = Enum.Font.FredokaOne
+label.TextColor3 = Color3.new(1, 1, 1)
+label.BackgroundColor3 = Color3.new(1, 0, 0)
+label.BorderSizePixel = 4
+label.BackgroundTransparency = 0
+label.TextStrokeTransparency = 0.3
+label.TextStrokeColor3 = Color3.new(0, 0, 0)
+
+label.Parent = gui
+gui.Parent = player:WaitForChild("PlayerGui")
