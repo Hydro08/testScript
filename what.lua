@@ -48,6 +48,7 @@ flyBtn.MouseButton1Click:Connect(function()
 	if flying then
 		flying = false
 		flyBtn.Text = "Fly OFF"
+		flyBtn.Color = "White"
 		if bv then bv:Destroy() end
 	else
 		flying = true
