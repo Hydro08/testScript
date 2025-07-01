@@ -1,31 +1,23 @@
--- Troll GUI for loadstring (Delta compatible)
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local event = ReplicatedStorage:WaitForChild("ShowTrollGui")
 
-local player = game:GetService("Players").LocalPlayer
+event.OnClientEvent:Connect(function()
+    if game.Players.LocalPlayer.PlayerGui:FindFirstChild("TrollGui") then return end
 
--- Iwas duplicate
-if player:FindFirstChild("PlayerGui"):FindFirstChild("TrollGui") then
-	return
-end
+    local gui = Instance.new("ScreenGui")
+    gui.Name = "TrollGui"
 
--- Create ScreenGui
-local gui = Instance.new("ScreenGui")
-gui.Name = "TrollGui"
-gui.ResetOnSpawn = false
-gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(0.6, 0, 0.2, 0)
+    label.Position = UDim2.new(0.2, 0, 0.4, 0)
+    label.Text = "YOU GOT TROLLED!"
+    label.TextSize = 42
+    label.TextColor3 = Color3.new(1, 1, 1)
+    label.BackgroundColor3 = Color3.new(1, 0, 0)
+    label.Font = Enum.Font.FredokaOne
+    label.TextStrokeTransparency = 0.3
+    label.TextStrokeColor3 = Color3.new(0, 0, 0)
 
--- Create Label
-local label = Instance.new("TextLabel")
-label.Size = UDim2.new(0.6, 0, 0.2, 0)
-label.Position = UDim2.new(0.2, 0, 0.4, 0)
-label.Text = "😈 YOU GOT TROLLED! 😈"
-label.TextSize = 42
-label.Font = Enum.Font.FredokaOne
-label.TextColor3 = Color3.new(1, 1, 1)
-label.BackgroundColor3 = Color3.new(1, 0, 0)
-label.BorderSizePixel = 4
-label.TextStrokeTransparency = 0.3
-label.TextStrokeColor3 = Color3.new(0, 0, 0)
-label.BackgroundTransparency = 0
-
-label.Parent = gui
-gui.Parent = player:WaitForChild("PlayerGui")
+    label.Parent = gui
+    gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+end)
