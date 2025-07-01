@@ -1,60 +1,47 @@
-local player = game:GetService("Players").LocalPlayer
+local player = game.Players.LocalPlayer
 local char = player.Character or player.CharacterAdded:Wait()
 local hrp = char:WaitForChild("HumanoidRootPart")
+local hum = char:WaitForChild("Humanoid")
 
-local gui = Instance.new("ScreenGui")
+-- GUI Setup
+local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
 gui.Name = "FlyGui"
 gui.ResetOnSpawn = false
-gui.IgnoreGuiInset = true
-gui.Parent = player:WaitForChild("PlayerGui")
 
-local function createButton(name, pos, text)
-	local btn = Instance.new("TextButton")
-	btn.Name = name
-	btn.Size = UDim2.new(0, 60, 0, 60)
-	btn.Position = pos
-	btn.Text = text
-	btn.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
-	btn.TextColor3 = Color3.new(1, 1, 1)
-	btn.TextScaled = true
-	btn.BorderSizePixel = 0
-	btn.BackgroundTransparency = 0.2
-	btn.Parent = gui
-	return btn
-end
+local btn = Instance.new("TextButton")
+btn.Size = UDim2.new(0, 100, 0, 50)
+btn.Position = UDim2.new(0.5, -50, 0.85, 0)
+btn.Text = "Fly ON"
+btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+btn.BackgroundTransparency = 0.3
+btn.Parent = gui
 
+-- Fly logic
 local flying = false
 local bv
-local speed = 50
-local moveDir = Vector3.zero
 
-local btnToggle = createButton("FlyToggle", UDim2.new(0.8, 0, 0.8, 0), "Fly ON")
-local btnUp = createButton("Up", UDim2.new(0.8, 0, 0.6, 0), "↑")
-local btnDown = createButton("Down", UDim2.new(0.8, 0, 0.9, 0), "↓")
-
-btnToggle.MouseButton1Click:Connect(function()
+btn.MouseButton1Click:Connect(function()
 	if flying then
 		flying = false
-		btnToggle.Text = "Fly ON"
+		btn.Text = "Fly ON"
 		if bv then bv:Destroy() end
 	else
 		flying = true
-		btnToggle.Text = "Fly OFF"
+		btn.Text = "Fly OFF"
+
 		bv = Instance.new("BodyVelocity", hrp)
 		bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
 		bv.Velocity = Vector3.zero
-	end
-end)
 
-btnUp.MouseButton1Click:Connect(function()
-	moveDir = Vector3.new(0, 1, 0)
-end)
-btnDown.MouseButton1Click:Connect(function()
-	moveDir = Vector3.new(0, -1, 0)
-end)
-
-game:GetService("RunService").RenderStepped:Connect(function()
-	if flying and bv then
-		bv.Velocity = moveDir * speed
+		-- Movement logic
+		game:GetService("RunService").Heartbeat:Connect(function()
+			if flying and bv then
+				local moveDir = hum.MoveDirection
+				local cam = workspace.CurrentCamera
+				local direction = cam.CFrame:VectorToWorldSpace(moveDir)
+				bv.Velocity = direction.Unit * 60
+			end
+		end)
 	end
 end)
