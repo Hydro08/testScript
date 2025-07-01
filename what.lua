@@ -3,49 +3,68 @@ local char = player.Character or player.CharacterAdded:Wait()
 local hrp = char:WaitForChild("HumanoidRootPart")
 local hum = char:WaitForChild("Humanoid")
 
--- GUI Toggle Button
+-- GUI Setup
 local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
-gui.Name = "FlyGui"
+gui.Name = "FlyGUI"
+gui.ResetOnSpawn = false
 
-local toggleBtn = Instance.new("TextButton")
-toggleBtn.Size = UDim2.new(0, 100, 0, 50)
-toggleBtn.Position = UDim2.new(0.5, -50, 0.85, 0)
-toggleBtn.Text = "Fly ON"
-toggleBtn.BackgroundColor3 = Color3.new(0, 0, 0)
-toggleBtn.TextColor3 = Color3.new(1, 1, 1)
-toggleBtn.BackgroundTransparency = 0.2
-toggleBtn.Parent = gui
+local function createBtn(text, pos)
+	local btn = Instance.new("TextButton")
+	btn.Size = UDim2.new(0, 60, 0, 60)
+	btn.Position = pos
+	btn.Text = text
+	btn.TextScaled = true
+	btn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+	btn.TextColor3 = Color3.new(1, 1, 1)
+	btn.BackgroundTransparency = 0.3
+	btn.Parent = gui
+	return btn
+end
 
+-- Buttons
+local flyBtn = createBtn("Fly OFF", UDim2.new(0.85, 0, 0.75, 0))
+local upBtn = createBtn("⬆️", UDim2.new(0.85, 0, 0.6, 0))
+local downBtn = createBtn("⬇️", UDim2.new(0.85, 0, 0.9, 0))
+
+-- Vars
 local flying = false
 local bv
+local yDir = 0
 
--- Fly Toggle
-toggleBtn.MouseButton1Click:Connect(function()
+-- Button logic
+upBtn.MouseButton1Click:Connect(function()
+	yDir = 60
+	wait(0.1)
+	yDir = 0
+end)
+
+downBtn.MouseButton1Click:Connect(function()
+	yDir = -60
+	wait(0.1)
+	yDir = 0
+end)
+
+flyBtn.MouseButton1Click:Connect(function()
 	if flying then
 		flying = false
-		toggleBtn.Text = "Fly ON"
+		flyBtn.Text = "Fly OFF"
 		if bv then bv:Destroy() end
 	else
 		flying = true
-		toggleBtn.Text = "Fly OFF"
+		flyBtn.Text = "Fly ON"
 		bv = Instance.new("BodyVelocity", hrp)
 		bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
 		bv.Velocity = Vector3.zero
 
-		game:GetService("RunService").Heartbeat:Connect(function()
+		game:GetService("RunService").RenderStepped:Connect(function()
 			if flying and bv and char and hum then
 				local dir = hum.MoveDirection
-				local y = 0
-
-				-- Check for Jump or Sit as Up/Down signal
-				if hum:GetState() == Enum.HumanoidStateType.Jumping then
-					y = 60 -- pataas
-				elseif hum.Sit then
-					y = -60 -- pababa
+				local vel = Vector3.new(dir.X, yDir, dir.Z)
+				if vel.Magnitude > 0 then
+					bv.Velocity = vel.Unit * 60
+				else
+					bv.Velocity = Vector3.zero
 				end
-
-				local vel = dir.Magnitude > 0 and dir.Unit * 60 or Vector3.zero
-				bv.Velocity = Vector3.new(vel.X, y, vel.Z)
 			end
 		end)
 	end
