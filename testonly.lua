@@ -47,7 +47,7 @@ RunService.Heartbeat:Connect(function()
             if v ~= LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                 local hrp = v.Character.HumanoidRootPart
                 pcall(function()
-                    hrp.Size = Vector3.new(15, 15, 15) -- laki ng hitbox
+                    hrp.Size = Vector3.new(30, 30, 30) -- laki ng hitbox
                     hrp.Transparency = 0.75
                     hrp.Material = Enum.Material.ForceField
                     hrp.CanCollide = false
