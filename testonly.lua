@@ -12,6 +12,7 @@ ToggleBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 ToggleBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 ToggleBtn.Font = Enum.Font.SourceSansBold
 ToggleBtn.TextSize = 20
+ToggleBtn.Draggable = true
 
 -- Toggle Logic
 local enabled = false
