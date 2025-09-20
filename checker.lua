@@ -13,5 +13,5 @@ btn.TextColor3 = Color3.fromRGB(255,255,255)
 btn.TextScaled = true
 
 btn.MouseButton1Click:Connect(function()
-    hrp.CFrame = CFrame.new(0, 100, 0) -- Teleport sa taas
+    hrp.CFrame = CFrame.new(100, 0, 0) -- Teleport sa taas
 end)
