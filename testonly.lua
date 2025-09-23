@@ -3,7 +3,7 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 local Panel = Instance.new("Frame")
-local minBtn = Instance.new("Button")
+local minBtn = Instance.new("TextButton")
 
 -- Hitbox Size
 local hrpSize = 30
