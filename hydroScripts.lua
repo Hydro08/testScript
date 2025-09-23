@@ -25,3 +25,7 @@ Panel.BackgroundTransparency = 0.3
 Panel.BorderSizePixel = 22
 Panel.Active = true
 Panel.Draggable = true
+
+local Corner = Instance.new("UICorner")
+Corner.CornerRadius = UDim.new(0 ,15)
+Corner.Parent = Panel
