@@ -65,7 +65,7 @@ MinBtn.MouseButton1Click:Connect(function()
     end
 end)
 
-Label.Size = UDim2.new(1, -20, 0, 30)
+Label.Size = UDim2.new(0.8, -20, 0, 25)
 Label.Position = UDim2.new(0, 0, 0, 5)
 Label.TextColor3 = Color3.fromRGB(255,255,255)
 Label.Text = "Hydro Script"
