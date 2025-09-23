@@ -52,14 +52,14 @@ MinBtn.MouseButton1Click:Connect(function()
                 child.Visible = false
             end
         end
-        Panel.Size = UDim2.new(0, 60, 0, 40) -- maliit na box
+        Panel.Size = UDim2.new(0, 360, 0, 40)
         MinBtn.Text = "+"
     else
         -- ibalik lahat
         for _, child in pairs(Panel:GetChildren()) do
             child.Visible = true
         end
-        Panel.Size = UDim2.new(0, 360, 0, 300) -- original size
+        Panel.Size = UDim2.new(0, 360, 0, 300)
         MinBtn.Text = "-"
     end
 end)
