@@ -1,14 +1,14 @@
 local Players = game:GetService("Players")
-local RunService = game:GetService("GetService")
-local LocalPlayer = Players.localPlayer
-local Frame = Instance.new("Frame")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+local Panel = Instance.new("Frame")
 
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.ResetOnSpawn = false
 
 local success, hui = pcall(function() return gethui() end)
 if not success or not hui then
-  hui = game:getServices("CoreGui")
+  hui = game:GetServices("CoreGui")
 end
 
 if syn and syn.protect_gui then
