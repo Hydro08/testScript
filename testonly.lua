@@ -3,10 +3,12 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 local Panel = Instance.new("Frame")
+local minBtn = Instance.new("Button")
 
 -- Hitbox Size
 local hrpSize = 30
 local enabled = false
+local minimized = false
 
 -- GUI Setup (para gumana sa cp gamit Delta)
 local ScreenGui = Instance.new("ScreenGui")
@@ -23,6 +25,15 @@ end
 
 ScreenGui.Parent = hui
 
+MinBtn.Parent = Panel
+MinBtn.Size = UDim2.new(0, 25, 0, 25)
+MinBtn.Position = UDim2.new(1, -30, 0, 5) -- upper-right corner ng panel
+MinBtn.Text = "-"
+MinBtn.BackgroundColor3 = Color3.fromRGB(200, 200, 0)
+MinBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+MinBtn.Font = Enum.Font.SourceSansBold
+MinBtn.TextSize = 20
+
 Panel.Parent = ScreenGui
 Panel.Size = UDim2.new(0, 300, 0, 120)
 Panel.Position = UDim2.new(0.5, -110, 0.1, 0)
@@ -31,6 +42,27 @@ Panel.BackgroundTransparency = 0.3
 Panel.BorderSizePixel = 2
 Panel.Active = true
 Panel.Draggable = true
+
+MinBtn.MouseButton1Click:Connect(function()
+    minimized = not minimized
+    if minimized then
+        -- itago lahat ng laman ng panel except yung MinBtn
+        for _, child in pairs(Panel:GetChildren()) do
+            if child ~= MinBtn then
+                child.Visible = false
+            end
+        end
+        Panel.Size = UDim2.new(0, 60, 0, 40) -- maliit na box
+        MinBtn.Text = "+"
+    else
+        -- ibalik lahat
+        for _, child in pairs(Panel:GetChildren()) do
+            child.Visible = true
+        end
+        Panel.Size = UDim2.new(0, 220, 0, 120) -- original size
+        MinBtn.Text = "-"
+    end
+end)
 
 -- Toggle Button
 local ToggleBtn = Instance.new("TextButton")
