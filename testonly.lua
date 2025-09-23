@@ -30,7 +30,6 @@ Panel.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 Panel.BackgroundTransparency = 0.3
 Panel.BorderSizePixel = 2
 Panel.Active = true
-Panel.Draggable = true
 
 -- Toggle Button
 local ToggleBtn = Instance.new("TextButton")
@@ -42,7 +41,6 @@ ToggleBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 ToggleBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 ToggleBtn.Font = Enum.Font.SourceSansBold
 ToggleBtn.TextSize = 20
-ToggleBtn.Draggable = true
 
 -- + Button
 local PlusBtn = Instance.new("TextButton")
@@ -54,7 +52,6 @@ PlusBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
 PlusBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 PlusBtn.Font = Enum.Font.SourceSansBold
 PlusBtn.TextSize = 24
-PlusBtn.Draggable = true
 
 -- - Button
 local MinusBtn = Instance.new("TextButton")
@@ -66,7 +63,6 @@ MinusBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
 MinusBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 MinusBtn.Font = Enum.Font.SourceSansBold
 MinusBtn.TextSize = 24
-MinusBtn.Draggable = true
 
 -- Size Label (visual feedback)
 local SizeLabel = Instance.new("TextLabel")
