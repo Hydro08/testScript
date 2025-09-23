@@ -1,4 +1,6 @@
--- Variables
+print("Hitbox script loaded") -- debug, makikita sa console ng Delta
+
+-- Services
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
@@ -15,6 +17,11 @@ local success, hui = pcall(function() return gethui() end)
 if not success or not hui then
     hui = game:GetService("CoreGui")
 end
+
+if syn and syn.protect_gui then
+    pcall(function() syn.protect_gui(ScreenGui) end)
+end
+
 ScreenGui.Parent = hui
 
 -- Toggle Button
@@ -35,6 +42,91 @@ PlusBtn.Parent = ScreenGui
 PlusBtn.Size = UDim2.new(0, 50, 0, 40)
 PlusBtn.Position = UDim2.new(0.5, 70, 0.1, 0)
 PlusBtn.Text = "+"
+PlusBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+PlusBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+PlusBtn.Font = Enum.Font.SourceSansBold
+PlusBtn.TextSize = 24
+PlusBtn.Draggable = true
+
+-- - Button
+local MinusBtn = Instance.new("TextButton")
+MinusBtn.Parent = ScreenGui
+MinusBtn.Size = UDim2.new(0, 50, 0, 40)
+MinusBtn.Position = UDim2.new(0.5, -120, 0.1, 0)
+MinusBtn.Text = "-"
+MinusBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+MinusBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+MinusBtn.Font = Enum.Font.SourceSansBold
+MinusBtn.TextSize = 24
+MinusBtn.Draggable = true
+
+-- Size Label (visual feedback)
+local SizeLabel = Instance.new("TextLabel")
+SizeLabel.Parent = ScreenGui
+SizeLabel.Size = UDim2.new(0, 150, 0, 30)
+SizeLabel.Position = UDim2.new(0.5, -75, 0.1, 45)
+SizeLabel.Text = "Size: "..hrpSize
+SizeLabel.BackgroundTransparency = 0.5
+SizeLabel.TextColor3 = Color3.fromRGB(255,255,255)
+SizeLabel.Font = Enum.Font.SourceSans
+SizeLabel.TextSize = 18
+
+-- Toggle Logic
+ToggleBtn.MouseButton1Click:Connect(function()
+    enabled = not enabled
+    if enabled then
+        ToggleBtn.Text = "Hitbox: ON"
+        ToggleBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
+    else
+        ToggleBtn.Text = "Hitbox: OFF"
+        ToggleBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+        -- Reset HRP size kapag naka OFF
+        for _, v in pairs(Players:GetPlayers()) do
+            if v ~= LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                local hrp = v.Character.HumanoidRootPart
+                pcall(function()
+                    hrp.Size = Vector3.new(2, 2, 1)
+                    hrp.Transparency = 1
+                    hrp.Material = Enum.Material.Plastic
+                    hrp.CanCollide = true
+                    hrp.BrickColor = BrickColor.new("Medium stone grey")
+                end)
+            end
+        end
+    end
+end)
+
+-- Plus Button Logic
+PlusBtn.MouseButton1Click:Connect(function()
+    hrpSize = hrpSize + 1
+    SizeLabel.Text = "Size: "..hrpSize
+    print("Hitbox Size: " .. hrpSize)
+end)
+
+-- Minus Button Logic
+MinusBtn.MouseButton1Click:Connect(function()
+    hrpSize = math.max(1, hrpSize - 1)
+    SizeLabel.Text = "Size: "..hrpSize
+    print("Hitbox Size: " .. hrpSize)
+end)
+
+-- Hitbox Loop
+RunService.Heartbeat:Connect(function()
+    if enabled then
+        for _, v in pairs(Players:GetPlayers()) do
+            if v ~= LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                local hrp = v.Character.HumanoidRootPart
+                pcall(function()
+                    hrp.Size = Vector3.new(hrpSize, hrpSize, hrpSize)
+                    hrp.Transparency = 0.5
+                    hrp.Material = Enum.Material.ForceField
+                    hrp.CanCollide = false
+                    hrp.BrickColor = BrickColor.new("Bright red")
+                end)
+            end
+        end
+    end
+end)PlusBtn.Text = "+"
 PlusBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
 PlusBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 PlusBtn.Font = Enum.Font.SourceSansBold
