@@ -4,6 +4,7 @@ local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 local Panel = Instance.new("Frame")
 local MinBtn = Instance.new("TextButton")
+local Label = Instance.new("TextLabel")
 
 -- Hitbox Size
 local hrpSize = 30
@@ -24,15 +25,6 @@ end
 
 ScreenGui.Parent = hui
 
-MinBtn.Parent = Panel
-MinBtn.Size = UDim2.new(0, 25, 0, 25)
-MinBtn.Position = UDim2.new(1, -30, 0, 5) -- upper-right corner ng panel
-MinBtn.Text = "-"
-MinBtn.BackgroundColor3 = Color3.fromRGB(200, 200, 0)
-MinBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
-MinBtn.Font = Enum.Font.SourceSansBold
-MinBtn.TextSize = 20
-
 Panel.Parent = ScreenGui
 Panel.Size = UDim2.new(0, 360, 0, 300)
 Panel.Position = UDim2.new(0.5, -110, 0.1, 0)
@@ -41,6 +33,15 @@ Panel.BackgroundTransparency = 0.3
 Panel.BorderSizePixel = 2
 Panel.Active = true
 Panel.Draggable = true
+
+MinBtn.Parent = Panel
+MinBtn.Size = UDim2.new(0, 25, 0, 25)
+MinBtn.Position = UDim2.new(1, -30, 0, 5) -- upper-right corner ng panel
+MinBtn.Text = "-"
+MinBtn.BackgroundColor3 = Color3.fromRGB(200, 200, 0)
+MinBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+MinBtn.Font = Enum.Font.SourceSansBold
+MinBtn.TextSize = 20
 
 local minimized = false
 MinBtn.MouseButton1Click:Connect(function()
@@ -63,6 +64,14 @@ MinBtn.MouseButton1Click:Connect(function()
         MinBtn.Text = "-"
     end
 end)
+
+Label.Size = UDim2.new(1, -20, 0, 30)
+Label.Position = UDim2.new(0.5, 0, 0, 5)
+Label.BackgroundColor3 = Color3.fromRGB(20,20,20)
+Label.TextColor3 = Color3.fromRGB(255,255,255)
+Label.Text = "Hydro Script"
+Label.TextScaled = true
+Label.Parent = Panel
 
 -- Toggle Button
 local ToggleBtn = Instance.new("TextButton")
