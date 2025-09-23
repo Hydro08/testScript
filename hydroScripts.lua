@@ -31,9 +31,9 @@ Corner.CornerRadius = UDim.new(0 ,15)
 Corner.Parent = Panel
 
 local Label = Instance.new("TextLabel")
-label.Parent = Panel
-label.Text = "HYDRO SCRIPTS"
-label.position = UDim2.new(0, 0, 0, 5)
-label.TextColor3 = Color3.fromRGB(255, 255, 255)
-label.BackgroundColor3 = Color3.fromRGB(4, 0, 47)
-label.TextScaled = true
+Label.Parent = Panel
+Label.Text = "HYDRO SCRIPTS"
+Label.position = UDim2.new(0, 0, 0, 5)
+Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+Label.BackgroundColor3 = Color3.fromRGB(4, 0, 47)
+Label.TextScaled = true
