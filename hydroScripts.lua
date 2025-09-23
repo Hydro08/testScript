@@ -2,6 +2,8 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 local Panel = Instance.new("Frame")
+local Corner = Instance.new("UICorner")
+local Label = Instance.new("TextLabel")
 
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.ResetOnSpawn = false
@@ -26,15 +28,13 @@ Panel.BorderSizePixel = 22
 Panel.Active = true
 Panel.Draggable = true
 
-local Corner = Instance.new("UICorner")
 Corner.CornerRadius = UDim.new(0 ,15)
 Corner.Parent = Panel
 
-local Label = Instance.new("TextLabel")
 Label.Size = UDim2.new(0.8, -20, 0, 25)
+Label.position = UDim2.new(0, 0, 0, 5)
 Label.Parent = Panel
 Label.Text = "HYDRO SCRIPTS"
-Label.position = UDim2.new(0, 0, 0, 5)
 Label.TextColor3 = Color3.fromRGB(255, 255, 255)
 Label.BackgroundColor3 = Color3.fromRGB(4, 0, 47)
 Label.TextScaled = true
