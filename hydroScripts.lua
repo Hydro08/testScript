@@ -31,6 +31,7 @@ Corner.CornerRadius = UDim.new(0 ,15)
 Corner.Parent = Panel
 
 local Label = Instance.new("TextLabel")
+Label.Size = UDim2.new(0.8, -20, 0, 25)
 Label.Parent = Panel
 Label.Text = "HYDRO SCRIPTS"
 Label.position = UDim2.new(0, 0, 0, 5)
