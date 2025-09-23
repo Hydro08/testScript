@@ -8,7 +8,6 @@ local minBtn = Instance.new("TextButton")
 -- Hitbox Size
 local hrpSize = 30
 local enabled = false
-local minimized = false
 
 -- GUI Setup (para gumana sa cp gamit Delta)
 local ScreenGui = Instance.new("ScreenGui")
@@ -43,6 +42,7 @@ Panel.BorderSizePixel = 2
 Panel.Active = true
 Panel.Draggable = true
 
+local minimized = false
 MinBtn.MouseButton1Click:Connect(function()
     minimized = not minimized
     if minimized then
