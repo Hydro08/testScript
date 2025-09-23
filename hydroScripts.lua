@@ -18,7 +18,7 @@ end
 ScreenGui.Parent = hui
 
 Panel.Parent = ScreenGui
-Panel.Size = UDim2.new(0, 500, 0, 500)
+Panel.Size = UDim2.new(0, 500, 0, 300)
 Panel.Position = UDim2.new(0.5, -110, 0.1, 0)
 Panel.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 Panel.BackgroundTransparency = 0.3
@@ -29,3 +29,11 @@ Panel.Draggable = true
 local Corner = Instance.new("UICorner")
 Corner.CornerRadius = UDim.new(0 ,15)
 Corner.Parent = Panel
+
+local Label = Instance.new("TextLabel")
+label.Parent = Panel
+label.Text = "HYDRO SCRIPTS"
+label.position = UDim2.new(0, 0, 0, 5)
+label.TextColor3 = Color3.fromRGB(255, 255, 255)
+label.BackgroundColor3 = Color3.fromRGB(4, 0, 47)
+label.TextScaled = true
