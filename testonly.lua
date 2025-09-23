@@ -1,9 +1,8 @@
-print("Hitbox script loaded") -- debug, makikita sa console ng Delta
-
 -- Services
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
+local Panel = Instance.new("Frame")
 
 -- Hitbox Size
 local hrpSize = 30
@@ -24,9 +23,18 @@ end
 
 ScreenGui.Parent = hui
 
+Panel.Parent = ScreenGui
+Panel.Size = UDim2.new(0, 220, 0, 120)
+Panel.Position = UDim2.new(0.5, -110, 0.1, 0)
+Panel.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+Panel.BackgroundTransparency = 0.3
+Panel.BorderSizePixel = 2
+Panel.Active = true
+Panel.Draggable = true
+
 -- Toggle Button
 local ToggleBtn = Instance.new("TextButton")
-ToggleBtn.Parent = ScreenGui
+ToggleBtn.Parent = Panel
 ToggleBtn.Size = UDim2.new(0, 120, 0, 40)
 ToggleBtn.Position = UDim2.new(0.5, -60, 0.1, 0)
 ToggleBtn.Text = "Hitbox: OFF"
@@ -38,7 +46,7 @@ ToggleBtn.Draggable = true
 
 -- + Button
 local PlusBtn = Instance.new("TextButton")
-PlusBtn.Parent = ScreenGui
+PlusBtn.Parent = Panel
 PlusBtn.Size = UDim2.new(0, 50, 0, 40)
 PlusBtn.Position = UDim2.new(0.5, 70, 0.1, 0)
 PlusBtn.Text = "+"
@@ -50,7 +58,7 @@ PlusBtn.Draggable = true
 
 -- - Button
 local MinusBtn = Instance.new("TextButton")
-MinusBtn.Parent = ScreenGui
+MinusBtn.Parent = Panel
 MinusBtn.Size = UDim2.new(0, 50, 0, 40)
 MinusBtn.Position = UDim2.new(0.5, -120, 0.1, 0)
 MinusBtn.Text = "-"
@@ -62,7 +70,7 @@ MinusBtn.Draggable = true
 
 -- Size Label (visual feedback)
 local SizeLabel = Instance.new("TextLabel")
-SizeLabel.Parent = ScreenGui
+SizeLabel.Parent = Panel
 SizeLabel.Size = UDim2.new(0, 150, 0, 30)
 SizeLabel.Position = UDim2.new(0.5, -75, 0.1, 45)
 SizeLabel.Text = "Size: "..hrpSize
@@ -98,14 +106,14 @@ end)
 
 -- Plus Button Logic
 PlusBtn.MouseButton1Click:Connect(function()
-    hrpSize = hrpSize + 1
+    hrpSize = hrpSize + 5
     SizeLabel.Text = "Size: "..hrpSize
     print("Hitbox Size: " .. hrpSize)
 end)
 
 -- Minus Button Logic
 MinusBtn.MouseButton1Click:Connect(function()
-    hrpSize = math.max(1, hrpSize - 1)
+    hrpSize = math.max(1, hrpSize - 5)
     SizeLabel.Text = "Size: "..hrpSize
     print("Hitbox Size: " .. hrpSize)
 end)
