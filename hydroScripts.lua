@@ -48,6 +48,5 @@ RefreshBtn.Text = "Refresh"
 RefreshBtn.Parent = Panel
 
 RefreshBtn.MouseButton1Click:Connect(function()
-    print("Refreshing script...")
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Hydro08/testScript/main/testonly.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Hydro08/testScript/main/hydroScripts.lua"))()
 end)
