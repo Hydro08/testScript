@@ -24,12 +24,13 @@ end
 ScreenGui.Parent = hui
 
 Panel.Parent = ScreenGui
-Panel.Size = UDim2.new(0, 220, 0, 120)
+Panel.Size = UDim2.new(0, 300, 0, 120)
 Panel.Position = UDim2.new(0.5, -110, 0.1, 0)
 Panel.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 Panel.BackgroundTransparency = 0.3
 Panel.BorderSizePixel = 2
 Panel.Active = true
+Panel.Draggable = true
 
 -- Toggle Button
 local ToggleBtn = Instance.new("TextButton")
