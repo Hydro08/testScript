@@ -38,3 +38,16 @@ Label.Text = "HYDRO SCRIPTS"
 Label.TextColor3 = Color3.fromRGB(255, 255, 255)
 Label.BackgroundColor3 = Color3.fromRGB(4, 0, 47)
 Label.TextScaled = true
+
+local RefreshBtn = Instance.new("TextButton")
+RefreshBtn.Size = UDim2.new(1, -20, 0, 30)
+RefreshBtn.Position = UDim2.new(0, 10, 0, 110) -- halimbawa sa ilalim ng panel
+RefreshBtn.BackgroundColor3 = Color3.fromRGB(255, 170, 0)
+RefreshBtn.TextColor3 = Color3.fromRGB(0,0,0)
+RefreshBtn.Text = "Refresh"
+RefreshBtn.Parent = Panel
+
+RefreshBtn.MouseButton1Click:Connect(function()
+    print("Refreshing script...")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Hydro08/testScript/main/testonly.lua"))()
+end)
