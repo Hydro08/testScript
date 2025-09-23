@@ -59,7 +59,7 @@ MinBtn.MouseButton1Click:Connect(function()
         for _, child in pairs(Panel:GetChildren()) do
             child.Visible = true
         end
-        Panel.Size = UDim2.new(0, 220, 0, 120) -- original size
+        Panel.Size = UDim2.new(0, 30s0, 0, 120) -- original size
         MinBtn.Text = "-"
     end
 end)
