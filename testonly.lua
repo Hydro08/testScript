@@ -67,7 +67,6 @@ end)
 
 Label.Size = UDim2.new(1, -20, 0, 30)
 Label.Position = UDim2.new(0, 0, 0, 5)
-Label.BackgroundColor3 = Color3.fromRGB(20,20,20)
 Label.TextColor3 = Color3.fromRGB(255,255,255)
 Label.Text = "Hydro Script"
 Label.TextScaled = true
