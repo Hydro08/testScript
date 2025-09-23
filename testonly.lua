@@ -34,7 +34,7 @@ MinBtn.Font = Enum.Font.SourceSansBold
 MinBtn.TextSize = 20
 
 Panel.Parent = ScreenGui
-Panel.Size = UDim2.new(0, 300, 0, 120)
+Panel.Size = UDim2.new(0, 360, 0, 120)
 Panel.Position = UDim2.new(0.5, -110, 0.1, 0)
 Panel.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 Panel.BackgroundTransparency = 0.3
@@ -59,7 +59,7 @@ MinBtn.MouseButton1Click:Connect(function()
         for _, child in pairs(Panel:GetChildren()) do
             child.Visible = true
         end
-        Panel.Size = UDim2.new(0, 300, 0, 120) -- original size
+        Panel.Size = UDim2.new(0, 360, 0, 120) -- original size
         MinBtn.Text = "-"
     end
 end)
