@@ -32,7 +32,7 @@ Corner.CornerRadius = UDim.new(0 ,15)
 Corner.Parent = Panel
 
 Label.Size = UDim2.new(0.8, -20, 0, 25)
-Label.position = UDim2.new(0, 0, 0, 5)
+Label.Position = UDim2.new(0, 0, 0, 5)
 Label.Parent = Panel
 Label.Text = "HYDRO SCRIPTS"
 Label.TextColor3 = Color3.fromRGB(255, 255, 255)
