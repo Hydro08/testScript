@@ -55,5 +55,11 @@ RefreshBtn.Text = "Refresh"
 RefreshBtn.Parent = Panel
 
 RefreshBtn.MouseButton1Click:Connect(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Hydro08/testScript/main/hydroScripts.lua"))()
+    -- Example: load new logic from GitHub pero hindi ni-tatanggal GUI
+    local success, err = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Hydro08/testScript/main/hydroScripts.lua"))()
+    end)
+    if not success then
+        warn("Failed to refresh:", err)
+    end
 end)
