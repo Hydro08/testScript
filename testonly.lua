@@ -1,9 +1,11 @@
 -- GUI Setup
 local ScreenGui = Instance.new("ScreenGui")
 local ToggleBtn = Instance.new("TextButton")
+local PlusBtn = Instance.new("TextButton")
 
 ScreenGui.Parent = game:GetService("CoreGui")
 
+-- Toggle button
 ToggleBtn.Parent = ScreenGui
 ToggleBtn.Size = UDim2.new(0, 120, 0, 50)
 ToggleBtn.Position = UDim2.new(0.5, -60, 0.1, 0)
@@ -14,8 +16,20 @@ ToggleBtn.Font = Enum.Font.SourceSansBold
 ToggleBtn.TextSize = 20
 ToggleBtn.Draggable = true
 
--- Toggle Logic
+-- Plus button
+PlusBtn.Parent = ScreenGui
+PlusBtn.Size = UDim2.new(0, 50, 0, 50)
+PlusBtn.Position = UDim2.new(0.5, 70, 0.1, 0) -- katabi ng toggle
+PlusBtn.Text = "+"
+PlusBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 255)
+PlusBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+PlusBtn.Font = Enum.Font.SourceSansBold
+PlusBtn.TextSize = 30
+PlusBtn.Draggable = true
+
+-- Logic
 local enabled = false
+local hrpSize = Vector3.new(30, 30, 30) -- default size
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
@@ -32,9 +46,39 @@ ToggleBtn.MouseButton1Click:Connect(function()
         for _, v in pairs(Players:GetPlayers()) do
             if v ~= LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
                 local hrp = v.Character.HumanoidRootPart
-                hrp.Size = Vector3.new(2, 2, 1) -- default HRP size
+                hrp.Size = Vector3.new(2, 2, 1)
                 hrp.Transparency = 1
                 hrp.Material = Enum.Material.Plastic
+                hrp.CanCollide = true
+                hrp.BrickColor = BrickColor.new("Medium stone grey")
+            end
+        end
+    end
+end)
+
+-- Plus button para palakihin
+PlusBtn.MouseButton1Click:Connect(function()
+    hrpSize = hrpSize + Vector3.new(1,1,1) -- dagdag 1 sa lahat ng axis
+    print("New Hitbox Size:", hrpSize)
+end)
+
+-- Hitbox Loop
+RunService.Heartbeat:Connect(function()
+    if enabled then
+        for _, v in pairs(Players:GetPlayers()) do
+            if v ~= LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                local hrp = v.Character.HumanoidRootPart
+                pcall(function()
+                    hrp.Size = hrpSize
+                    hrp.Transparency = 0.5
+                    hrp.Material = Enum.Material.ForceField
+                    hrp.CanCollide = false
+                    hrp.BrickColor = BrickColor.new("Bright red")
+                end)
+            end
+        end
+    end
+end)                hrp.Material = Enum.Material.Plastic
                 hrp.CanCollide = true
                 hrp.BrickColor = BrickColor.new("Medium stone grey")
             end
