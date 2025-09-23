@@ -34,7 +34,7 @@ MinBtn.Font = Enum.Font.SourceSansBold
 MinBtn.TextSize = 20
 
 Panel.Parent = ScreenGui
-Panel.Size = UDim2.new(0, 360, 0, 120)
+Panel.Size = UDim2.new(0, 360, 0, 300)
 Panel.Position = UDim2.new(0.5, -110, 0.1, 0)
 Panel.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 Panel.BackgroundTransparency = 0.3
@@ -59,7 +59,7 @@ MinBtn.MouseButton1Click:Connect(function()
         for _, child in pairs(Panel:GetChildren()) do
             child.Visible = true
         end
-        Panel.Size = UDim2.new(0, 360, 0, 120) -- original size
+        Panel.Size = UDim2.new(0, 360, 0, 300) -- original size
         MinBtn.Text = "-"
     end
 end)
@@ -68,7 +68,7 @@ end)
 local ToggleBtn = Instance.new("TextButton")
 ToggleBtn.Parent = Panel
 ToggleBtn.Size = UDim2.new(0, 120, 0, 40)
-ToggleBtn.Position = UDim2.new(0.5, -60, 0.1, 0)
+ToggleBtn.Position = UDim2.new(0.5, -60, 0.1, 20)
 ToggleBtn.Text = "Hitbox: OFF"
 ToggleBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 ToggleBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -79,7 +79,7 @@ ToggleBtn.TextSize = 20
 local PlusBtn = Instance.new("TextButton")
 PlusBtn.Parent = Panel
 PlusBtn.Size = UDim2.new(0, 50, 0, 40)
-PlusBtn.Position = UDim2.new(0.5, 70, 0.1, 0)
+PlusBtn.Position = UDim2.new(0.5, 70, 0.1, 20)
 PlusBtn.Text = "+"
 PlusBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
 PlusBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -90,7 +90,7 @@ PlusBtn.TextSize = 24
 local MinusBtn = Instance.new("TextButton")
 MinusBtn.Parent = Panel
 MinusBtn.Size = UDim2.new(0, 50, 0, 40)
-MinusBtn.Position = UDim2.new(0.5, -120, 0.1, 0)
+MinusBtn.Position = UDim2.new(0.5, -120, 0.1, 20)
 MinusBtn.Text = "-"
 MinusBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
 MinusBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -101,7 +101,7 @@ MinusBtn.TextSize = 24
 local SizeLabel = Instance.new("TextLabel")
 SizeLabel.Parent = Panel
 SizeLabel.Size = UDim2.new(0, 150, 0, 30)
-SizeLabel.Position = UDim2.new(0.5, -75, 0.1, 45)
+SizeLabel.Position = UDim2.new(0.5, -75, 0.1, 65)
 SizeLabel.Text = "Size: "..hrpSize
 SizeLabel.BackgroundTransparency = 0.5
 SizeLabel.TextColor3 = Color3.fromRGB(255,255,255)
