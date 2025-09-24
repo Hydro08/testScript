@@ -51,7 +51,7 @@ ExitBtn.Font = Enum.Font.SourceSansBold
 ExitBtn.TextSize = 20
 
 ExitBtn.MouseButton1Click:Connect(function()
-    panel.Visible = false
+    Panel.Visible = false
 end)
 
 local minimized = false
