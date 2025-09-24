@@ -147,6 +147,18 @@ ToggleBtn.MouseButton1Click:Connect(function()
     end
 end)
 
+PlusBtn.MouseButton1Click:Connect(function()
+    hrpSize = hrpSize + 5
+    SizeLabel.Text = "Size: "..hrpSize
+    print("Hitbox Size: " .. hrpSize)
+end)
+
+MinusBtn.MouseButton1Click:Connect(function()
+    hrpSize = math.max(1, hrpSize - 5)
+    SizeLabel.Text = "Size: "..hrpSize
+    print("Hitbox Size: " .. hrpSize)
+end)
+
 local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 local noclip = false
 local NoClipBtn = Instance.new("TextButton")
@@ -164,6 +176,57 @@ NoClipBtn.MouseButton1Click:Connect(function()
     NoClipBtn.Text = "No Clip: " .. (noclip and "ON" or "OFF")
 end)
 
+local PlayerFind = Instance.new("TextBox")
+local FlingButton = Instance.new("TextButton")
+
+PlayerFind.Parent = Panel
+PlayerFind.Size = UDim2.new(0, 150, 0, 30)
+PlayerFind.Position = UDim2.new(0.5, -120, 0, 200)
+PlayerFind.Font = Enum.Font.SourceSansBold
+PlayerFind.PlaceTextHolder = "Enter Name"
+PlayerFind.Text = ""
+PlayerFind.TextSize = 20
+
+FlingButton.Parent = Panel
+FlingButton.Size = UDim2.new(0, 70, 0, 30)
+FlingButton.Position = UDim2.new(0.5, 30, 0, 200)
+FlingButton.Text = "Fling"
+FlingButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+FlingButton.TextColor3 = Color.3.fromRGB(255, 255, 255)
+FlingButton.Font = Enum.Font.SourceSansBold
+FlingButton.TextSize = 20
+
+local function flingPlayer(targetName)
+    local targetPlayer = Players:FindFirstChild(targetName)
+    if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+        local hrp = targetPlayer.Character.HumanoidRootPart
+
+        local flingPart = Instance.new("Part")
+        flingPart.Size = Vector.new(20, 20, 20)
+        flingPart.Anchored = false
+        flingPart.CanCollide = true
+        flingPart.Position = hrp.Position + Vector3.new(0, 5, 0)
+        flingPart.Parent = workspace
+
+        local weld = Instance.new("WeldConstraint")
+        weld.Part0 = flingPart
+        weld.Part1 = hrp
+        weld.Parent = flingPart
+
+        flingPart.AssemblyLinearVelocity = Vector3.new(0, 200, 0)
+        task.delay(1, function() flingPart:Destroy() end)
+    else
+        warn("Player not found or no HRP")
+    end
+end
+
+FlingButton.MouseButton1Click:Connect(function()
+    local targetName = PlayerFind.Text
+        if targetName ~= "" then
+            flingPlayer(targetName)
+    end
+end)
+
 RunService.Stepped:Connect(function()
     if character then
         for _, part in pairs(character:GetDescendants()) do
@@ -172,18 +235,6 @@ RunService.Stepped:Connect(function()
             end
         end
     end
-end)
-
-PlusBtn.MouseButton1Click:Connect(function()
-    hrpSize = hrpSize + 5
-    SizeLabel.Text = "Size: "..hrpSize
-    print("Hitbox Size: " .. hrpSize)
-end)
-
-MinusBtn.MouseButton1Click:Connect(function()
-    hrpSize = math.max(1, hrpSize - 5)
-    SizeLabel.Text = "Size: "..hrpSize
-    print("Hitbox Size: " .. hrpSize)
 end)
 
 RunService.Heartbeat:Connect(function()
