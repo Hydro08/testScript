@@ -1,13 +1,18 @@
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
-local Panel = Instance.new("Frame")
-local MinBtn = Instance.new("TextButton")
-local Label = Instance.new("TextLabel")
 
 local hrpSize = 30
 local enabled = false
+local noclip = false
+local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 
+-- update character kapag respawn
+LocalPlayer.CharacterAdded:Connect(function(char)
+    character = char
+end)
+
+-- GUI Setup
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.ResetOnSpawn = false
 
@@ -22,15 +27,24 @@ end
 
 ScreenGui.Parent = hui
 
+local cornerPanel = Instance.new("UICorner")
+
+-- Main Panel
+local Panel = Instance.new("Frame")
 Panel.Parent = ScreenGui
 Panel.Size = UDim2.new(0, 360, 0, 300)
-Panel.Position = UDim2.new(0.5, -110, 0.1, 0)
+Panel.Position = UDim2.new(0.5, -180, 0.1, 0)
 Panel.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 Panel.BackgroundTransparency = 0.3
 Panel.BorderSizePixel = 2
 Panel.Active = true
 Panel.Draggable = true
 
+cornerPanel.CornerRadius = UDim.new(0, 15)
+cornerPanel.Parent = Panel
+
+-- Minimize button
+local MinBtn = Instance.new("TextButton")
 MinBtn.Parent = Panel
 MinBtn.Size = UDim2.new(0, 25, 0, 25)
 MinBtn.Position = UDim2.new(1, -60, 0, 5)
@@ -40,6 +54,7 @@ MinBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
 MinBtn.Font = Enum.Font.SourceSansBold
 MinBtn.TextSize = 20
 
+-- Exit button
 local ExitBtn = Instance.new("TextButton")
 ExitBtn.Parent = Panel
 ExitBtn.Size = UDim2.new(0, 25, 0, 25)
@@ -54,11 +69,21 @@ ExitBtn.MouseButton1Click:Connect(function()
     Panel.Visible = false
 end)
 
+-- Title
+local Label = Instance.new("TextLabel")
+Label.Size = UDim2.new(0.8, -20, 0, 25)
+Label.Position = UDim2.new(0, 0, 0, 5)
+Label.TextColor3 = Color3.fromRGB(255,255,255)
+Label.Text = "Hydro Script"
+Label.TextScaled = true
+Label.BackgroundTransparency = 1
+Label.Parent = Panel
+
+-- Minimize logic
 local minimized = false
 MinBtn.MouseButton1Click:Connect(function()
     minimized = not minimized
     if minimized then
-        -- itago lahat ng laman ng panel except yung MinBtn
         for _, child in pairs(Panel:GetChildren()) do
             if child ~= MinBtn and child ~= Label and child ~= ExitBtn then
                 child.Visible = false
@@ -67,7 +92,6 @@ MinBtn.MouseButton1Click:Connect(function()
         Panel.Size = UDim2.new(0, 360, 0, 40)
         MinBtn.Text = "+"
     else
-        -- ibalik lahat
         for _, child in pairs(Panel:GetChildren()) do
             child.Visible = true
         end
@@ -76,27 +100,22 @@ MinBtn.MouseButton1Click:Connect(function()
     end
 end)
 
-Label.Size = UDim2.new(0.8, -20, 0, 25)
-Label.Position = UDim2.new(0, 0, 0, 5)
-Label.TextColor3 = Color3.fromRGB(255,255,255)
-Label.Text = "Hydro Script"
-Label.TextScaled = true
-Label.Parent = Panel
-
+-- Hitbox toggle
 local ToggleBtn = Instance.new("TextButton")
 ToggleBtn.Parent = Panel
 ToggleBtn.Size = UDim2.new(0, 120, 0, 40)
-ToggleBtn.Position = UDim2.new(0.5, -60, 0.1, 20)
+ToggleBtn.Position = UDim2.new(0.5, -60, 0, 40)
 ToggleBtn.Text = "Hitbox: OFF"
 ToggleBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 ToggleBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 ToggleBtn.Font = Enum.Font.SourceSansBold
 ToggleBtn.TextSize = 20
 
+-- Hitbox size controls
 local PlusBtn = Instance.new("TextButton")
 PlusBtn.Parent = Panel
 PlusBtn.Size = UDim2.new(0, 50, 0, 40)
-PlusBtn.Position = UDim2.new(0.5, 70, 0.1, 20)
+PlusBtn.Position = UDim2.new(0.5, 70, 0, 40)
 PlusBtn.Text = "+"
 PlusBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
 PlusBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -106,7 +125,7 @@ PlusBtn.TextSize = 24
 local MinusBtn = Instance.new("TextButton")
 MinusBtn.Parent = Panel
 MinusBtn.Size = UDim2.new(0, 50, 0, 40)
-MinusBtn.Position = UDim2.new(0.5, -120, 0.1, 20)
+MinusBtn.Position = UDim2.new(0.5, -120, 0, 40)
 MinusBtn.Text = "-"
 MinusBtn.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
 MinusBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -116,7 +135,7 @@ MinusBtn.TextSize = 24
 local SizeLabel = Instance.new("TextLabel")
 SizeLabel.Parent = Panel
 SizeLabel.Size = UDim2.new(0, 150, 0, 30)
-SizeLabel.Position = UDim2.new(0.5, -75, 0.1, 65)
+SizeLabel.Position = UDim2.new(0.5, -75, 0, 85)
 SizeLabel.Text = "Size: "..hrpSize
 SizeLabel.BackgroundTransparency = 0.5
 SizeLabel.TextColor3 = Color3.fromRGB(255,255,255)
@@ -131,48 +150,24 @@ ToggleBtn.MouseButton1Click:Connect(function()
     else
         ToggleBtn.Text = "Hitbox: OFF"
         ToggleBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-        -- Reset HRP size kapag naka OFF
-        for _, v in pairs(Players:GetPlayers()) do
-            if v ~= LocalPlayer and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
-                local hrp = v.Character.HumanoidRootPart
-                pcall(function()
-                    hrp.Size = Vector3.new(2, 2, 1)
-                    hrp.Transparency = 1
-                    hrp.Material = Enum.Material.Plastic
-                    hrp.CanCollide = true
-                    hrp.BrickColor = BrickColor.new("Medium stone grey")
-                end)
-            end
-        end
     end
 end)
 
 PlusBtn.MouseButton1Click:Connect(function()
     hrpSize = hrpSize + 5
     SizeLabel.Text = "Size: "..hrpSize
-    print("Hitbox Size: " .. hrpSize)
 end)
 
 MinusBtn.MouseButton1Click:Connect(function()
     hrpSize = math.max(1, hrpSize - 5)
     SizeLabel.Text = "Size: "..hrpSize
-    print("Hitbox Size: " .. hrpSize)
 end)
 
-local character
-if LocalPlayer.Character then
-    character = LocalPlayer.Character
-end   
-
-LocalPlayer.CharacterAdded:Connect(function(char)
-    character = char
-end)
-    
-local noclip = false
+-- NoClip
 local NoClipBtn = Instance.new("TextButton")
 NoClipBtn.Parent = Panel
 NoClipBtn.Size = UDim2.new(0, 150, 0, 30)
-NoClipBtn.Position = UDim2.new(0.5, -120, 0, 140)
+NoClipBtn.Position = UDim2.new(0.5, -75, 0, 130)
 NoClipBtn.Text = "No Clip: OFF"
 NoClipBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 NoClipBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -184,47 +179,48 @@ NoClipBtn.MouseButton1Click:Connect(function()
     NoClipBtn.Text = "No Clip: " .. (noclip and "ON" or "OFF")
 end)
 
+-- Fling UI
 local PlayerFind = Instance.new("TextBox")
-local FlingButton = Instance.new("TextButton")
-
 PlayerFind.Parent = Panel
 PlayerFind.Size = UDim2.new(0, 150, 0, 30)
-PlayerFind.Position = UDim2.new(0.5, -120, 0, 180)
+PlayerFind.Position = UDim2.new(0.5, -120, 0, 170)
 PlayerFind.Font = Enum.Font.SourceSansBold
 PlayerFind.PlaceholderText = "Enter Name"
 PlayerFind.Text = ""
 PlayerFind.TextSize = 20
 
+local FlingButton = Instance.new("TextButton")
 FlingButton.Parent = Panel
 FlingButton.Size = UDim2.new(0, 70, 0, 30)
-FlingButton.Position = UDim2.new(0.5, 30, 0, 180)
+FlingButton.Position = UDim2.new(0.5, 30, 0, 170)
 FlingButton.Text = "Fling"
 FlingButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 FlingButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 FlingButton.Font = Enum.Font.SourceSansBold
 FlingButton.TextSize = 20
 
+-- Player finder
 local function findPlayer(partial)
     partial = partial:lower()
     for _, p in ipairs(Players:GetPlayers()) do
-        if p.DisplayName:lower():sub(1, #partial) == partial or p.Name:lower():sub(1, #partial) == partial then
+        if p.Name:lower():sub(1, #partial) == partial then
             return p
         end
     end
 end
 
+-- Fling function
 local function flingPlayer(targetName)
-    local targetPlayer = findPlayer(targetName) -- gamit na yung combo function
+    local targetPlayer = findPlayer(targetName)
     if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
         local hrp = targetPlayer.Character.HumanoidRootPart
 
-        -- Gumawa ng invisible part para i-weld
         local flingPart = Instance.new("Part")
         flingPart.Size = Vector3.new(5, 5, 5)
         flingPart.Anchored = false
         flingPart.CanCollide = false
         flingPart.Transparency = 1
-        flingPart.Position = hrp.Position
+        flingPart.CFrame = hrp.CFrame
         flingPart.Parent = workspace
 
         local weld = Instance.new("WeldConstraint")
@@ -232,15 +228,13 @@ local function flingPlayer(targetName)
         weld.Part1 = hrp
         weld.Parent = flingPart
 
-        -- Gumamit ng BodyAngularVelocity para paikot-ikot
         local spin = Instance.new("BodyAngularVelocity")
         spin.MaxTorque = Vector3.new(1e9, 1e9, 1e9)
-        spin.AngularVelocity = Vector3.new(0, 5000, 0) -- super spin sa Y axis
+        spin.AngularVelocity = Vector3.new(0, 5000, 0)
         spin.Parent = flingPart
 
-        -- Gumamit ng BodyVelocity para itapon
         local flingForce = Instance.new("BodyVelocity")
-        flingForce.Velocity = Vector3.new(0, 200, 0) -- pataas + sabay ikot
+        flingForce.Velocity = Vector3.new(0, 200, 0)
         flingForce.MaxForce = Vector3.new(1e9, 1e9, 1e9)
         flingForce.Parent = flingPart
 
@@ -254,11 +248,12 @@ end
 
 FlingButton.MouseButton1Click:Connect(function()
     local targetName = PlayerFind.Text
-        if targetName ~= "" then
-            flingPlayer(targetName)
+    if targetName ~= "" then
+        flingPlayer(targetName)
     end
 end)
 
+-- RunService Loops
 RunService.Stepped:Connect(function()
     if character then
         for _, part in pairs(character:GetDescendants()) do
