@@ -189,7 +189,7 @@ local FlingButton = Instance.new("TextButton")
 
 PlayerFind.Parent = Panel
 PlayerFind.Size = UDim2.new(0, 150, 0, 30)
-PlayerFind.Position = UDim2.new(0.5, -120, 0, 200)
+PlayerFind.Position = UDim2.new(0.5, -120, 0, 170)
 PlayerFind.Font = Enum.Font.SourceSansBold
 PlayerFind.PlaceholderText = "Enter Name"
 PlayerFind.Text = ""
@@ -197,7 +197,7 @@ PlayerFind.TextSize = 20
 
 FlingButton.Parent = Panel
 FlingButton.Size = UDim2.new(0, 70, 0, 30)
-FlingButton.Position = UDim2.new(0.5, 30, 0, 200)
+FlingButton.Position = UDim2.new(0.5, 30, 0, 170)
 FlingButton.Text = "Fling"
 FlingButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 FlingButton.TextColor3 = Color3.fromRGB(255, 255, 255)
