@@ -5,12 +5,6 @@ local Panel = Instance.new("Frame")
 local MinBtn = Instance.new("TextButton")
 local Label = Instance.new("TextLabel")
 
-local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-
-LocalPlayer.CharacterAdded:Connect(function(char)
-    character = char
-end)
-
 local hrpSize = 30
 local enabled = false
 
@@ -165,7 +159,15 @@ MinusBtn.MouseButton1Click:Connect(function()
     print("Hitbox Size: " .. hrpSize)
 end)
 
-local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local character
+if LocalPlayer.Character then
+    character = LocalPlayer.Character
+end   
+
+LocalPlayer.CharacterAdded:Connect(function(char)
+    character = char
+end)
+    
 local noclip = false
 local NoClipBtn = Instance.new("TextButton")
 NoClipBtn.Parent = Panel
@@ -189,7 +191,7 @@ PlayerFind.Parent = Panel
 PlayerFind.Size = UDim2.new(0, 150, 0, 30)
 PlayerFind.Position = UDim2.new(0.5, -120, 0, 200)
 PlayerFind.Font = Enum.Font.SourceSansBold
-PlayerFind.PlaceHolderText = "Enter Name"
+PlayerFind.PlaceholderText = "Enter Name"
 PlayerFind.Text = ""
 PlayerFind.TextSize = 20
 
@@ -202,8 +204,17 @@ FlingButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 FlingButton.Font = Enum.Font.SourceSansBold
 FlingButton.TextSize = 20
 
+local function getPlayerByName(partial)
+    partial = partial:lower()
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p.Name:lower():sub(1, #partial) == partial then
+            return p
+        end
+    end
+end
+
 local function flingPlayer(targetName)
-    local targetPlayer = Players:FindFirstChild(targetName)
+    local targetPlayer = getPlayerByName(targetName)
     if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
         local hrp = targetPlayer.Character.HumanoidRootPart
 
@@ -219,8 +230,10 @@ local function flingPlayer(targetName)
         weld.Part1 = hrp
         weld.Parent = flingPart
 
-        flingPart.AssemblyLinearVelocity = Vector3.new(0, 200, 0)
-        task.delay(1, function() flingPart:Destroy() end)
+        flingPart.AssemblyLinearVelocity = Vector3.new(0, 500, 0)
+        task.delay(0.5, function()
+            if flingPart then flingPart:Destroy() end
+        end)
     else
         warn("Player not found or no HRP")
     end
