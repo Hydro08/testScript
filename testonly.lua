@@ -204,25 +204,27 @@ FlingButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 FlingButton.Font = Enum.Font.SourceSansBold
 FlingButton.TextSize = 20
 
-local function getPlayerByName(partial)
+local function findPlayer(partial)
     partial = partial:lower()
     for _, p in ipairs(Players:GetPlayers()) do
-        if p.Name:lower():sub(1, #partial) == partial then
+        if p.DisplayName:lower():sub(1, #partial) == partial or p.Name:lower():sub(1, #partial) == partial then
             return p
         end
     end
 end
 
 local function flingPlayer(targetName)
-    local targetPlayer = getPlayerByName(targetName)
+    local targetPlayer = findPlayer(targetName) -- gamit na yung combo function
     if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
         local hrp = targetPlayer.Character.HumanoidRootPart
 
+        -- Gumawa ng invisible part para i-weld
         local flingPart = Instance.new("Part")
-        flingPart.Size = Vector3.new(20, 20, 20)
+        flingPart.Size = Vector3.new(5, 5, 5)
         flingPart.Anchored = false
-        flingPart.CanCollide = true
-        flingPart.Position = hrp.Position + Vector3.new(0, 5, 0)
+        flingPart.CanCollide = false
+        flingPart.Transparency = 1
+        flingPart.Position = hrp.Position
         flingPart.Parent = workspace
 
         local weld = Instance.new("WeldConstraint")
@@ -230,9 +232,20 @@ local function flingPlayer(targetName)
         weld.Part1 = hrp
         weld.Parent = flingPart
 
-        flingPart.AssemblyLinearVelocity = Vector3.new(0, 500, 0)
-        task.delay(0.5, function()
-            if flingPart then flingPart:Destroy() end
+        -- Gumamit ng BodyAngularVelocity para paikot-ikot
+        local spin = Instance.new("BodyAngularVelocity")
+        spin.MaxTorque = Vector3.new(1e9, 1e9, 1e9)
+        spin.AngularVelocity = Vector3.new(0, 5000, 0) -- super spin sa Y axis
+        spin.Parent = flingPart
+
+        -- Gumamit ng BodyVelocity para itapon
+        local flingForce = Instance.new("BodyVelocity")
+        flingForce.Velocity = Vector3.new(0, 200, 0) -- pataas + sabay ikot
+        flingForce.MaxForce = Vector3.new(1e9, 1e9, 1e9)
+        flingForce.Parent = flingPart
+
+        task.delay(1.5, function()
+            flingPart:Destroy()
         end)
     else
         warn("Player not found or no HRP")
