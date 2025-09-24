@@ -59,7 +59,7 @@ MinBtn.MouseButton1Click:Connect(function()
     if minimized then
         -- itago lahat ng laman ng panel except yung MinBtn
         for _, child in pairs(Panel:GetChildren()) do
-            if child ~= MinBtn then
+            if child ~= MinBtn and child ~= Label then
                 child.Visible = false
             end
         end
