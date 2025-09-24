@@ -145,7 +145,7 @@ NoClipBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 NoClipBtn.Font = Enum.Font.SourceSansBold
 NoClipBtn.TextSize = 20
 
-NoClipBtn.MosueButton1Click:Connect(function()
+NoClipBtn.MouseButton1Click:Connect(function()
     noclip = not noclip
     NoClipBtn.Text = "No Clip: " .. (noclip and "ON" or "OFF")
 end)
@@ -153,7 +153,7 @@ end)
 RunService.Stepped:Connect(function()
     if noclip and character then
         for _, part in pairs(character:GetDescendants()) do
-            if part:IsA("Basepart") then
+            if part:IsA("BasePart") then
                 part.CanCollide = false    
             end
         end
