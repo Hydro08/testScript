@@ -64,7 +64,7 @@ MinBtn.MouseButton1Click:Connect(function()
                 child.Visible = false
             end
         end
-        Panel.Size = UDim2.new(0, 360, 0, 40)
+        Panel.Size = UDim2.new(0, 60, 0, 40)
         MinBtn.Text = "+"
     else
         -- ibalik lahat
