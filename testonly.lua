@@ -5,6 +5,12 @@ local Panel = Instance.new("Frame")
 local MinBtn = Instance.new("TextButton")
 local Label = Instance.new("TextLabel")
 
+local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+
+LocalPlayer.CharacterAdded:Connect(function(char)
+    character = char
+end)
+
 local hrpSize = 30
 local enabled = false
 
@@ -183,7 +189,7 @@ PlayerFind.Parent = Panel
 PlayerFind.Size = UDim2.new(0, 150, 0, 30)
 PlayerFind.Position = UDim2.new(0.5, -120, 0, 200)
 PlayerFind.Font = Enum.Font.SourceSansBold
-PlayerFind.PlaceTextHolder = "Enter Name"
+PlayerFind.PlaceHolderText = "Enter Name"
 PlayerFind.Text = ""
 PlayerFind.TextSize = 20
 
@@ -202,7 +208,7 @@ local function flingPlayer(targetName)
         local hrp = targetPlayer.Character.HumanoidRootPart
 
         local flingPart = Instance.new("Part")
-        flingPart.Size = Vector.new(20, 20, 20)
+        flingPart.Size = Vector3.new(20, 20, 20)
         flingPart.Anchored = false
         flingPart.CanCollide = true
         flingPart.Position = hrp.Position + Vector3.new(0, 5, 0)
