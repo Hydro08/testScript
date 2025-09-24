@@ -192,7 +192,7 @@ FlingButton.Size = UDim2.new(0, 70, 0, 30)
 FlingButton.Position = UDim2.new(0.5, 30, 0, 200)
 FlingButton.Text = "Fling"
 FlingButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-FlingButton.TextColor3 = Color.3.fromRGB(255, 255, 255)
+FlingButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 FlingButton.Font = Enum.Font.SourceSansBold
 FlingButton.TextSize = 20
 
