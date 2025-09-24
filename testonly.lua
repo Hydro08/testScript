@@ -137,7 +137,7 @@ local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 local noclip = false
 local NoClipBtn = Instance.new("TextButton")
 NoClipBtn.Parent = Panel
-NoClipBtn.Size = UDim2.new(0, 150, 0 30)
+NoClipBtn.Size = UDim2.new(0, 150, 0, 30)
 NoClipBtn.Position = UDim2.new(0.5, -120, 0, 110)
 NoClipBtn.Text = "No Clip: OFF"
 NoClipBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
@@ -147,7 +147,7 @@ NoClipBtn.TextSize = 20
 
 NoClipBtn.MosueButton1Click:Connect(function()
     noclip = not noclip
-    NoClipBtn.Text = "No Clip" .. (noclip and "ON" or "OFF")
+    NoClipBtn.Text = "No Clip: " .. (noclip and "ON" or "OFF")
 end)
 
 RunService.Stepped:Connect(function()
