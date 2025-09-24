@@ -33,12 +33,25 @@ Panel.Draggable = true
 
 MinBtn.Parent = Panel
 MinBtn.Size = UDim2.new(0, 25, 0, 25)
-MinBtn.Position = UDim2.new(1, -30, 0, 5) -- upper-right corner ng panel
+MinBtn.Position = UDim2.new(1, -100, 0, 5)
 MinBtn.Text = "-"
 MinBtn.BackgroundColor3 = Color3.fromRGB(200, 200, 0)
 MinBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
 MinBtn.Font = Enum.Font.SourceSansBold
 MinBtn.TextSize = 20
+
+local ExitBtn = Instance.new("TextButton")
+ExitBtn.Size = UDim2.new(0, 25, 0, 25)
+ExitBtn.Position = UDim2.new(1, -100, 0, 5)
+ExitBtn.Text = "X"
+ExitBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+ExitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+ExitBtn.Font = Enum.Font.SourceSansBold
+ExitBtn.TextSize = 20
+
+ExitBtn.MouseButton1Click:Connect(function()
+    panel.Visible = false
+end)
 
 local minimized = false
 MinBtn.MouseButton1Click:Connect(function()
@@ -138,7 +151,7 @@ local noclip = false
 local NoClipBtn = Instance.new("TextButton")
 NoClipBtn.Parent = Panel
 NoClipBtn.Size = UDim2.new(0, 150, 0, 30)
-NoClipBtn.Position = UDim2.new(0.5, -120, 0, 110)
+NoClipBtn.Position = UDim2.new(0.5, -120, 0, 140)
 NoClipBtn.Text = "No Clip: OFF"
 NoClipBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 NoClipBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -154,7 +167,10 @@ RunService.Stepped:Connect(function()
     if noclip and character then
         for _, part in pairs(character:GetDescendants()) do
             if part:IsA("BasePart") then
-                part.CanCollide = false    
+                if noclip then
+                    part.CanCollide = false
+                else
+                    part.CanCollide = true
             end
         end
     end
