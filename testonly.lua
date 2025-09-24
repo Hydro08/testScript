@@ -33,7 +33,7 @@ Panel.Draggable = true
 
 MinBtn.Parent = Panel
 MinBtn.Size = UDim2.new(0, 25, 0, 25)
-MinBtn.Position = UDim2.new(1, -100, 0, 5)
+MinBtn.Position = UDim2.new(1, -60, 0, 5)
 MinBtn.Text = "-"
 MinBtn.BackgroundColor3 = Color3.fromRGB(200, 200, 0)
 MinBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
