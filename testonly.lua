@@ -41,6 +41,7 @@ MinBtn.Font = Enum.Font.SourceSansBold
 MinBtn.TextSize = 20
 
 local ExitBtn = Instance.new("TextButton")
+ExitBtn.Parent = Panel
 ExitBtn.Size = UDim2.new(0, 25, 0, 25)
 ExitBtn.Position = UDim2.new(1, -100, 0, 5)
 ExitBtn.Text = "X"
