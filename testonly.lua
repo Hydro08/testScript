@@ -1,4 +1,3 @@
--- Services
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
@@ -6,11 +5,9 @@ local Panel = Instance.new("Frame")
 local MinBtn = Instance.new("TextButton")
 local Label = Instance.new("TextLabel")
 
--- Hitbox Size
 local hrpSize = 30
 local enabled = false
 
--- GUI Setup (para gumana sa cp gamit Delta)
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.ResetOnSpawn = false
 
@@ -72,7 +69,6 @@ Label.Text = "Hydro Script"
 Label.TextScaled = true
 Label.Parent = Panel
 
--- Toggle Button
 local ToggleBtn = Instance.new("TextButton")
 ToggleBtn.Parent = Panel
 ToggleBtn.Size = UDim2.new(0, 120, 0, 40)
@@ -83,7 +79,6 @@ ToggleBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 ToggleBtn.Font = Enum.Font.SourceSansBold
 ToggleBtn.TextSize = 20
 
--- + Button
 local PlusBtn = Instance.new("TextButton")
 PlusBtn.Parent = Panel
 PlusBtn.Size = UDim2.new(0, 50, 0, 40)
@@ -94,7 +89,6 @@ PlusBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 PlusBtn.Font = Enum.Font.SourceSansBold
 PlusBtn.TextSize = 24
 
--- - Button
 local MinusBtn = Instance.new("TextButton")
 MinusBtn.Parent = Panel
 MinusBtn.Size = UDim2.new(0, 50, 0, 40)
@@ -105,7 +99,6 @@ MinusBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
 MinusBtn.Font = Enum.Font.SourceSansBold
 MinusBtn.TextSize = 24
 
--- Size Label (visual feedback)
 local SizeLabel = Instance.new("TextLabel")
 SizeLabel.Parent = Panel
 SizeLabel.Size = UDim2.new(0, 150, 0, 30)
@@ -116,7 +109,6 @@ SizeLabel.TextColor3 = Color3.fromRGB(255,255,255)
 SizeLabel.Font = Enum.Font.SourceSans
 SizeLabel.TextSize = 18
 
--- Toggle Logic
 ToggleBtn.MouseButton1Click:Connect(function()
     enabled = not enabled
     if enabled then
@@ -141,21 +133,45 @@ ToggleBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- Plus Button Logic
+local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local noclip = false
+local NoClipBtn = Instance.new("TextButton")
+NoClipBtn.Parent = Panel
+NoClipBtn.Size = UDim2.new(0, 150, 0 30)
+NoClipBtn.Position = UDim2.new(0.5, -120, 0, 110)
+NoClipBtn.Text = "No Clip: OFF"
+NoClipBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+NoClipBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+NoClipBtn.Font = Enum.Font.SourceSansBold
+NoClipBtn.TextSize = 20
+
+NoClipBtn.MosueButton1Click:Connect(function()
+    noclip = not noclip
+    NoClipBtn.Text = "No Clip" .. (noclip and "ON" or "OFF")
+end)
+
+RunService.Stepped:Connect(function()
+    if noclip and character then
+        for _, part in pairs(character:GetDescendants()) do
+            if part:IsA("Basepart") then
+                part.CanCollide = false    
+            end
+        end
+    end
+end)
+
 PlusBtn.MouseButton1Click:Connect(function()
     hrpSize = hrpSize + 5
     SizeLabel.Text = "Size: "..hrpSize
     print("Hitbox Size: " .. hrpSize)
 end)
 
--- Minus Button Logic
 MinusBtn.MouseButton1Click:Connect(function()
     hrpSize = math.max(1, hrpSize - 5)
     SizeLabel.Text = "Size: "..hrpSize
     print("Hitbox Size: " .. hrpSize)
 end)
 
--- Hitbox Loop
 RunService.Heartbeat:Connect(function()
     if enabled then
         for _, v in pairs(Players:GetPlayers()) do
