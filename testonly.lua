@@ -60,11 +60,11 @@ MinBtn.MouseButton1Click:Connect(function()
     if minimized then
         -- itago lahat ng laman ng panel except yung MinBtn
         for _, child in pairs(Panel:GetChildren()) do
-            if child ~= MinBtn and child ~= Label then
+            if child ~= MinBtn and child ~= Label and child ~= ExitBtn then
                 child.Visible = false
             end
         end
-        Panel.Size = UDim2.new(0, 60, 0, 40)
+        Panel.Size = UDim2.new(0, 360, 0, 40)
         MinBtn.Text = "+"
     else
         -- ibalik lahat
@@ -165,13 +165,10 @@ NoClipBtn.MouseButton1Click:Connect(function()
 end)
 
 RunService.Stepped:Connect(function()
-    if noclip and character then
+    if character then
         for _, part in pairs(character:GetDescendants()) do
             if part:IsA("BasePart") then
-                if noclip then
-                    part.CanCollide = false
-                else
-                    part.CanCollide = true
+                part.CanCollide = not noclip
             end
         end
     end
