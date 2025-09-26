@@ -183,25 +183,23 @@ end)
 
 local textBox = Instance.new("TextBox")
 textBox.Size = UDim2.new(0, 150, 0, 30)
-textBox.Position = UDim2.new(0.5, 20, 0, 190)
+textBox.Position = UDim2.new(0.5, -100, 0, 190)
 textBox.PlaceholderText = "Enter username/displayname"
 textBox.Text = ""
 textBox.TextScaled = true
 textBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 textBox.TextColor3 = Color3.fromRGB(255, 255, 255)
 textBox.Parent = Panel
-textBox.Draggabe = true
 
 -- Create Teleport Button
-local button = Instance.new("TextButton")
-button.Size = UDim2.new(0, 200, 0, 35)
-button.Position = UDim2.new(0.5, 80, 0.55, 190)
-button.Text = "Teleport"
-button.TextScaled = true
-button.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
-button.TextColor3 = Color3.fromRGB(255, 255, 255)
-button.Parent = panel
-button.Draggable = true
+local TpButton = Instance.new("TextButton")
+TpButton.Size = UDim2.new(0, 200, 0, 35)
+TpButton.Position = UDim2.new(0.5, 80, 0.55, 190)
+TpButton.Text = "Teleport"
+TpButton.TextScaled = true
+TpButton.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
+TpButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+TpButton.Parent = panel
 
 -- Status Label
 local status = Instance.new("TextLabel")
@@ -229,7 +227,7 @@ local function teleportToPlayer(nameInput)
 end
 
 -- Button Click
-button.MouseButton1Click:Connect(function()
+TpButton.MouseButton1Click:Connect(function()
     if textBox.Text ~= "" then
         teleportToPlayer(textBox.Text)
     else
