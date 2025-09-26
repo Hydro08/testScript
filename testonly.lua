@@ -181,6 +181,62 @@ RunService.Stepped:Connect(function()
     end
 end)
 
+local textBox = Instance.new("TextBox")
+textBox.Size = UDim2.new(0, 150, 0, 30)
+textBox.Position = UDim2.new(0.5, 20, 0, 190)
+textBox.PlaceholderText = "Enter username/displayname"
+textBox.Text = ""
+textBox.TextScaled = true
+textBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+textBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+textBox.Parent = Panel
+textBox.Draggabe = true
+
+-- Create Teleport Button
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0, 200, 0, 35)
+button.Position = UDim2.new(0.5, 80, 0.55, 190)
+button.Text = "Teleport"
+button.TextScaled = true
+button.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
+button.TextColor3 = Color3.fromRGB(255, 255, 255)
+button.Parent = panel
+button.Draggable = true
+
+-- Status Label
+local status = Instance.new("TextLabel")
+status.Size = UDim2.new(0, 200, 0, 20)
+status.Position = UDim2.new(0.5, -75, 0.85, 240)
+status.Text = ""
+status.TextScaled = true
+status.BackgroundTransparency = 1
+status.TextColor3 = Color3.fromRGB(200, 200, 200)
+status.Parent = panel
+
+-- Teleport Function
+local function teleportToPlayer(nameInput)
+    for _, player in ipairs(Players:GetPlayers()) do
+        if string.lower(player.Name) == string.lower(nameInput) 
+        or string.lower(player.DisplayName) == string.lower(nameInput) then
+            if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                LocalPlayer.Character:MoveTo(player.Character.HumanoidRootPart.Position)
+                status.Text = "Teleported to " .. player.Name
+                return
+            end
+        end
+    end
+    status.Text = "Player not found!"
+end
+
+-- Button Click
+button.MouseButton1Click:Connect(function()
+    if textBox.Text ~= "" then
+        teleportToPlayer(textBox.Text)
+    else
+        status.Text = "Enter a name first!"
+    end
+end)
+
 -- Hitbox update
 RunService.Heartbeat:Connect(function()
     if enabled then
