@@ -183,7 +183,7 @@ end)
 
 local textBox = Instance.new("TextBox")
 textBox.Size = UDim2.new(0, 150, 0, 30)
-textBox.Position = UDim2.new(0.5, -100, 0, 190)
+textBox.Position = UDim2.new(0.5, -120, 0, 190)
 textBox.PlaceholderText = "Enter username/displayname"
 textBox.Text = ""
 textBox.TextScaled = true
@@ -194,17 +194,17 @@ textBox.Parent = Panel
 -- Create Teleport Button
 local TpButton = Instance.new("TextButton")
 TpButton.Size = UDim2.new(0, 200, 0, 35)
-TpButton.Position = UDim2.new(0.5, 80, 0.55, 190)
+TpButton.Position = UDim2.new(0.5, 20, 0.55, 190)
 TpButton.Text = "Teleport"
 TpButton.TextScaled = true
-TpButton.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
+TpButton.BackgroundColor3 = Color3.fromRGB(70, 130, 190)
 TpButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 TpButton.Parent = panel
 
 -- Status Label
 local status = Instance.new("TextLabel")
 status.Size = UDim2.new(0, 200, 0, 20)
-status.Position = UDim2.new(0.5, -75, 0.85, 240)
+status.Position = UDim2.new(0.5, -100, 0.85, 240)
 status.Text = ""
 status.TextScaled = true
 status.BackgroundTransparency = 1
