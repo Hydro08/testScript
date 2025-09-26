@@ -5,7 +5,7 @@ local LocalPlayer = Players.LocalPlayer
 -- ScreenGui
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.ResetOnSpawn = false
-ScreenGui.Parent = game:GetService("CoreGui")
+ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui") 
 
 -- Main Panel
 local Panel = Instance.new("Frame")
