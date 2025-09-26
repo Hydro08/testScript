@@ -193,7 +193,7 @@ textBox.Parent = Panel
 
 -- Create Teleport Button
 local TpButton = Instance.new("TextButton")
-TpButton.Size = UDim2.new(0, 200, 0, 35)
+TpButton.Size = UDim2.new(0, 100, 0, 35)
 TpButton.Position = UDim2.new(0.5, -20, 0, 190)
 TpButton.Text = "Teleport"
 TpButton.TextScaled = true
