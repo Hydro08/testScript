@@ -194,7 +194,7 @@ textBox.Parent = Panel
 -- Create Teleport Button
 local TpButton = Instance.new("TextButton")
 TpButton.Size = UDim2.new(0, 200, 0, 35)
-TpButton.Position = UDim2.new(0.5, 20, 0.55, 190)
+TpButton.Position = UDim2.new(0.5, -20, 0, 190)
 TpButton.Text = "Teleport"
 TpButton.TextScaled = true
 TpButton.BackgroundColor3 = Color3.fromRGB(70, 130, 190)
@@ -204,8 +204,8 @@ TpButton.Parent = panel
 -- Status Label
 local status = Instance.new("TextLabel")
 status.Size = UDim2.new(0, 200, 0, 20)
-status.Position = UDim2.new(0.5, -100, 0.85, 240)
-status.Text = ""
+status.Position = UDim2.new(0.5, -100, 0, 240)
+status.Text = "test"
 status.TextScaled = true
 status.BackgroundTransparency = 1
 status.TextColor3 = Color3.fromRGB(200, 200, 200)
