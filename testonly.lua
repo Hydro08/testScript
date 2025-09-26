@@ -199,7 +199,7 @@ TpButton.Text = "Teleport"
 TpButton.TextScaled = true
 TpButton.BackgroundColor3 = Color3.fromRGB(70, 130, 190)
 TpButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-TpButton.Parent = panel
+TpButton.Parent = Panel
 
 -- Status Label
 local status = Instance.new("TextLabel")
@@ -209,7 +209,7 @@ status.Text = "test"
 status.TextScaled = true
 status.BackgroundTransparency = 1
 status.TextColor3 = Color3.fromRGB(200, 200, 200)
-status.Parent = panel
+status.Parent = Panel
 
 -- Teleport Function
 local function teleportToPlayer(nameInput)
