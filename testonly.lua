@@ -192,6 +192,7 @@ local TpButton = Instance.new("TextButton")
 TpButton.Parent = Panel
 TpButton.Size = UDim2(0, 70, 0, 30)
 TpButton.Position = UDim2(0, 80, 0, 200)
+TpButton.Text = "Teleport"
 TpButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 TpButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 
