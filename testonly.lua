@@ -18,10 +18,6 @@ Panel.Active = true
 Panel.Draggable = true
 Panel.Parent = ScreenGui
 
-local cornerPanel = Instance.new("UICorner")
-cornerPanel.CornerRadius = UDim.new(0, 15)
-cornerPanel.Parent = Panel
-
 -- Label
 local Label = Instance.new("TextLabel")
 Label.Size = UDim2.new(0.8, -20, 0, 25)
