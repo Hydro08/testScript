@@ -184,19 +184,19 @@ end)
 local TextBox = Instance.new("TextBox")
 TextBox.Parent = Panel
 TextBox.Size = UDim2(0, 150, 0, 30)
-TextBox.Position = UDim2(0, -100, 0, 200)
+TextBox.Position = UDim2(0, 20, 0, 200)
 TextBox.PlaceholderText = "Enter Username"
 TextBox.Text = ""
 
 local TpButton = Instance.new("TextButton")
 TpButton.Parent = Panel
 TpButton.Size = UDim2(0, 70, 0, 30)
-TpButton.Position = UDim2(0, -30, 0, 200)
+TpButton.Position = UDim2(0, 80, 0, 200)
 TpButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 TpButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 
 local function tpToPlayer(name)
-    for _, player in pairs(Player:GetPlayers()) do
+    for _, player in pairs(Players:GetPlayers()) do
         if player.Name:lower() == name:lower() or player.DisplayName:lower() == name:lower() then
             local targetChar = player.Character
             local myChar = LocalPlayer.Character
