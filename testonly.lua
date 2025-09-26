@@ -210,7 +210,7 @@ local function tpToPlayer(name)
             return
         end
     end
-end) 
+end
 
 TpButton:MouseButton1Click:Connect(function()
     local inputName = TextBox.Text
