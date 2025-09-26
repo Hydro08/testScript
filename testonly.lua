@@ -181,45 +181,6 @@ RunService.Stepped:Connect(function()
     end
 end)
 
-local TextBox = Instance.new("TextBox")
-TextBox.Parent = Panel
-TextBox.Size = UDim2(0, 150, 0, 30)
-TextBox.Position = UDim2(0, 20, 0, 200)
-TextBox.PlaceholderText = "Enter Username"
-TextBox.Text = ""
-
-local TpButton = Instance.new("TextButton")
-TpButton.Parent = Panel
-TpButton.Size = UDim2(0, 70, 0, 30)
-TpButton.Position = UDim2(0, 80, 0, 200)
-TpButton.Text = "Teleport"
-TpButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-TpButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-
-local function tpToPlayer(name)
-    for _, player in pairs(Players:GetPlayers()) do
-        if player.Name:lower() == name:lower() or player.DisplayName:lower() == name:lower() then
-            local targetChar = player.Character
-            local myChar = LocalPlayer.Character
-            if targetChar and myChar then
-                local targetHrp = targetChar:FindFirstChild("HumanoidRootPart")
-                local myHrp = myChar:FindFirstChild("HumanoidRootPart")
-                if targetHrp and myHrp then
-                    myHrp.CFrame = targetHrp.CFrame + Vector3.new(2, 0, 0)
-                end
-            end
-            return
-        end
-    end
-end
-
-TpButton:MouseButton1Click:Connect(function()
-    local inputName = TextBox.Text
-    if inputName ~= "" then
-        tpToPlayer(inputName)
-    end
-end)
-
 -- Hitbox update
 RunService.Heartbeat:Connect(function()
     if enabled then
